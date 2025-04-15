@@ -4,18 +4,24 @@
   <meta charset="UTF-8">
   <title>开心农场 Demo</title>
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      background-color: #e0f7fa;
-    }
-    #farm {
-      display: grid;
-      grid-template-columns: repeat(4, 100px);
-      gap: 10px;
-      justify-content: center;
-      margin-top: 30px;
-    }
+   body {
+    font-family: sans-serif;
+    text-align: center;
+    background-image: url('farm_bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  #farm {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    justify-content: center;
+    padding-top: 100px; /* 让种植区不要贴顶 */
+  }
     .plot {
       width: 100px;
       height: 100px;
