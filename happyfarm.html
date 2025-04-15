@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>开心农场 Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #e0f7fa;
+    }
+    #farm {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .plot {
+      width: 100px;
+      height: 100px;
+      background-color: #a1887f;
+      border: 2px solid #5d4037;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .seed {
+      background-color: #4caf50;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+    .sprout {
+      background-color: #81c784;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+    .grown {
+      background-color: #ffb74d;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>欢迎来到开心农场！</h1>
+  <p>点击土地种菜，再点击收菜 🌱</p>
+  <div id="farm"></div>
+
+  <script>
+    const farm = document.getElementById('farm');
+
+    for (let i = 0; i < 8; i++) {
+      const plot = document.createElement('div');
+      plot.className = 'plot';
+      plot.dataset.stage = 'empty';
+
+      plot.addEventListener('click', () => {
+        let stage = plot.dataset.stage;
+
+        if (stage === 'empty') {
+          plot.dataset.stage = 'seed';
+          plot.innerHTML = '<div class="seed"></div>';
+          setTimeout(() => {
+            plot.dataset.stage = 'sprout';
+            plot.innerHTML = '<div class="sprout"></div>';
+          }, 2000);
+          setTimeout(() => {
+            plot.dataset.stage = 'grown';
+            plot.innerHTML = '<div class="grown"></div>';
+          }, 4000);
+        } else if (stage === 'grown') {
+          plot.dataset.stage = 'empty';
+          plot.innerHTML = '';
+          alert('你收获了一个南瓜！🎃');
+        }
+      });
+
+      farm.appendChild(plot);
+    }
+  </script>
+</body>
+</html>
