@@ -2,88 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>开心农场 Demo</title>
+  <title>开心农场示例</title>
   <style>
-   body {
-    font-family: sans-serif;
-    text-align: center;
-    background-image: url('farm_bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 100vh;
-    margin: 0;
-  }
-
-  #farm {
-    display: grid;
-    grid-template-columns: repeat(4, 100px);
-    gap: 10px;
-    justify-content: center;
-    padding-top: 100px; /* 让种植区不要贴顶 */
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('background/1.png') no-repeat center center;
+      background-size: cover;
+      font-family: sans-serif;
+    }
+    #farm {
+      display: grid;
+      grid-template-columns: repeat(4, 64px);
+      gap: 4px;
+      padding: 40px;
+      margin-top: 100px;
+      width: fit-content;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
     .plot {
-      width: 100px;
-      height: 100px;
-      background-color: #a1887f;
-      border: 2px solid #5d4037;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 64px;
+      height: 64px;
+      background: url('guiRes/tilled.png') no-repeat center center;
+      background-size: cover;
+      position: relative;
       cursor: pointer;
     }
-    .seed {
-      background-color: #4caf50;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
+    .seed, .sprout, .grown {
+      position: absolute;
+      top: 0; left: 0;
+      width: 64px;
+      height: 64px;
+      background-size: cover;
     }
-    .sprout {
-      background-color: #81c784;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-    }
-    .grown {
-      background-color: #ffb74d;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
+    .seed { background-image: url('guiRes/seed.png'); }
+    .sprout { background-image: url('crops/crop1/1.png'); }
+    .grown { background-image: url('crops/crop1/3.png'); }
   </style>
 </head>
 <body>
-  <h1>欢迎来到开心农场！</h1>
-  <p>点击土地种菜，再点击收菜 🌱</p>
+  <h2 style="text-align:center;color:white;margin-top:20px;">🌱 开心农场种植示例 🌿</h2>
   <div id="farm"></div>
 
   <script>
     const farm = document.getElementById('farm');
-
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 12; i++) {
       const plot = document.createElement('div');
       plot.className = 'plot';
       plot.dataset.stage = 'empty';
 
       plot.addEventListener('click', () => {
-        let stage = plot.dataset.stage;
-
-        if (stage === 'empty') {
+        if (plot.dataset.stage === 'empty') {
           plot.dataset.stage = 'seed';
           plot.innerHTML = '<div class="seed"></div>';
+
           setTimeout(() => {
             plot.dataset.stage = 'sprout';
             plot.innerHTML = '<div class="sprout"></div>';
           }, 2000);
+
           setTimeout(() => {
             plot.dataset.stage = 'grown';
             plot.innerHTML = '<div class="grown"></div>';
           }, 4000);
-        } else if (stage === 'grown') {
-          plot.dataset.stage = 'empty';
+        } else if (plot.dataset.stage === 'grown') {
           plot.innerHTML = '';
-          alert('你收获了一个南瓜！🎃');
+          plot.dataset.stage = 'empty';
+          alert('你收获了一棵作物！');
         }
       });
 
